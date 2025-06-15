@@ -33,7 +33,7 @@ const initialState: UserState = {
   page: 1,
   totalCount: 0,
   open: false,
-  view: 'card',
+  view: 'cards',
   selectedUserId: null,
   initialValues: {
     first_name: '',
