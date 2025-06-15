@@ -1,26 +1,56 @@
+// {
+//   "compilerOptions": {
+//     "baseUrl": ".",
+//     "jsx": "react-jsx",
+//     "module": "ESNext",
+//     "moduleResolution": "Node",
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     "paths": {
+//       "@assets/*": ["src/assets/*"],
+//       "@globalComps/*": ["src/globals/components/*"],
+//       "@globals/*": ["src/globals/*"],
+//       "@redux/*": ["src/redux/*"],
+//       "@screens/*": ["src/screens/*"],
+//       "@utils/*": ["src/utils/*"],
+//       "@/*": ["src/*"],
+//     },
+//      "typeRoots": ["./node_modules/@types", "./src/globals/components/ckeditor4-react.d.ts"]
+//   },
+//   "files": [],
+//   "references": [
+//     { "path": "./tsconfig.app.json" },
+//     { "path": "./tsconfig.node.json" }
+//   ]
+// }
+
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "isolatedModules": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@globalComps/*": ["globals/components/*"],
+      "@globals/*": ["globals/*"],
+      "@redux/*": ["redux/*"],
+      "@screens/*": ["screens/*"],
+      "@utils/*": ["utils/*"],
+      "@/*": ["*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./globals/components/ckeditor4-react.d.ts"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

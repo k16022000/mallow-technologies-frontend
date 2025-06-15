@@ -1,0 +1,8 @@
+@use '../../config.scss' as *;
+
+.waterMark {
+  position: fixed;
+  bottom: 0;
+  margin-left: 1em;
+  color: rgba(102, 102, 102, 1);
+}

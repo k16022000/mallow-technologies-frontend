@@ -1,0 +1,76 @@
+.cardWrapper {
+  position: relative;
+  border-radius: 12px;
+}
+
+.userCard {
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+  background-color: #fff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 18px;
+  color: #111 !important;
+}
+
+.email {
+  font-size: 14px;
+  color: #666 !important;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  opacity: 0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.editBtn {
+  background-color: #786fff !important;
+  color: #fff !important;
+  &:hover {
+    background-color: #5c54e7 !important;
+  }
+}
+
+.deleteBtn {
+  background-color: #f44336 !important;
+  color: #fff !important;
+  &:hover {
+    background-color: #d32f2f !important;
+  }
+}

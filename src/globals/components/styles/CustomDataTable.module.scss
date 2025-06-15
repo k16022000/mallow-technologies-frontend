@@ -1,0 +1,114 @@
+@use '../../config.scss' as *;
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  background-color: css-var("card-bg-color");
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  .titleActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 1rem;
+
+    .toggleGroup {
+      background-color: css-var("card-bg-color");
+      border-radius: 6px;
+      padding: 4px;
+
+      button[aria-pressed='true'] {
+        color: $primary-color;
+      }
+
+      button[aria-pressed='false'] {
+        color: css-var("text-color");
+      }
+    }
+  }
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 1.5rem 0;
+  flex-wrap: wrap;
+
+  .searchBox {
+    .search {
+      color: $primary-color;
+    }
+  }
+
+  .controlsBox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row-reverse;
+    flex: 1;
+    justify-content: end;
+    min-width: 300px;
+  }
+
+  .scrollButtonContainer {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .disabledScrollButton {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .excelIcon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .excelIcon:hover {
+    transform: scale(1.1);
+  }
+
+  .entriesDropdown {
+    width: 9%;
+    min-width: 120px;
+
+    >div {
+      margin-bottom: 0;
+    }
+  }
+
+  .rightControls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .addButton {
+      background-color: #5f56ff !important;
+      color: #fff;
+    }
+  }
+}
+
+
+@media (max-width: 600px) {
+  .headerContainer {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .controlsBox {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .entriesDropdown {
+    width: 9%;
+  }
+}

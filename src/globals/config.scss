@@ -1,0 +1,101 @@
+@use "sass:string";
+
+// scss variables
+$primary-color: #aa10ff;
+$shadow-color: #aa10ff88;
+$transparent-primary-color: rgba(171, 16, 255, 0.1);
+$dark-primary-color: #760bb2;
+$font-family: 'Inter', sans-serif;
+$error-color: #db2828;
+$green-color: #2e7d32;
+$secendory-text-color: #989898;
+$gray: gray;
+// theming
+
+html {
+  --text-color: #1a1a1a;
+  --bg-color: #f9edff;
+  --card-bg-color: #fff;
+  --side-bar-linear-gradient: linear-gradient(180deg, #AA01FF 0%, #8F00DD 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --text-color: #f9edff;
+    --bg-color: #121212;
+    --card-bg-color: #1e1e1e;
+    --side-bar-linear-gradient: #121212;
+  }
+}
+
+// manual override
+html[class~="light"] {
+  --text-color: #1a1a1a;
+  --bg-color: #f9edff;
+  --card-bg-color: #fff;
+  --side-bar-linear-gradient: linear-gradient(180deg, #AA01FF 0%, #8F00DD 100%);
+}
+
+html[class~="dark"] {
+  --text-color: #f9edff;
+  --bg-color: #121212;
+  --card-bg-color: #1e1e1e;
+  --side-bar-linear-gradient: #121212;
+}
+
+html {
+  color: var(--text-color);
+  background-color: var(--bg-color)
+}
+
+@function css-var($name) {
+  @return string.unquote("var(--#{$name})");
+}
+
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 900px,
+  lg: 1200px,
+  xl: 1536px
+);
+
+// Mixin: respond-below
+@mixin respond-below($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value !=null {
+    @media (max-width: #{ $value - 1 }) {
+      @content;
+    }
+  }
+}
+
+// Mixin: respond-above
+@mixin respond-above($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value !=null {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// Mixin: respond-between
+@mixin respond-between($min-key, $max-key) {
+  $min: map-get($breakpoints, $min-key);
+  $max: map-get($breakpoints, $max-key);
+
+  @if $min !=null and $max !=null {
+    @media (min-width: $min) and (max-width: #{ $max - 1 }) {
+      @content;
+    }
+  }
+}
+
+// example
+// @include respond-below(sm) { ... }
+// @include respond-above(md) { ... }
+// @include respond-between(sm, lg) { ... }

@@ -1,0 +1,111 @@
+.logo {
+  $logo-size: 40px;
+
+  height: $logo-size;
+  width: $logo-size;
+  min-width: $logo-size;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 .5rem $shadow-color;
+
+  .logoImage {
+    height: $logo-size;
+    width: $logo-size;
+    object-fit: cover;
+  }
+
+  .logoText {
+    height: $logo-size;
+    width: $logo-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+  }
+}
+
+.backButton {
+  display: flex;
+  gap: .25rem;
+  padding: .5rem 1rem !important;
+  transition: all 300ms ease-in-out !important;
+
+  &:hover {
+    gap: .75rem;
+    padding: .5rem 1rem !important;
+    padding-left: .5rem !important;
+  }
+}
+
+.InnerSideNav {
+  border-radius: .75rem !important;
+  box-shadow: 0 0 .5rem $shadow-color !important;
+  position: sticky;
+  top: 1rem;
+
+  .collapseContainer {
+    font-size: 1.5rem;
+    padding: .5rem;
+    display: flex;
+    justify-content: end;
+  }
+
+  .navList {
+    padding: 1rem;
+    margin: 0;
+
+    .listItem {
+      padding-bottom: .5rem;
+      width: 100%;
+      overflow: hidden;
+      transition: width 300ms ease;
+
+      a {
+        display: flex;
+        align-items: center;
+        transition: width 0.3s ease;
+        border-radius: .5rem;
+        padding: .75rem 1rem;
+        transition: all 300ms ease;
+        white-space: nowrap;
+        background-color: transparent;
+        color: css-var(text-color);
+
+        >div:first-child {
+          margin-right: .75rem;
+          line-height: .5rem;
+        }
+
+        >div:last-child {
+          transition: opacity 0.2s ease;
+          width: auto;
+          opacity: 1;
+        }
+
+        &.activeItem {
+          background-color: $primary-color;
+          color: css-var(bg-color);
+        }
+
+        &:hover {
+          background-color: $transparent-primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+
+    &.collapsedList {
+      .listItem {
+        width: 3.35rem;
+
+        a {
+          >div:last-child {
+            opacity: 0;
+            width: 0;
+          }
+        }
+      }
+    }
+  }
+}
