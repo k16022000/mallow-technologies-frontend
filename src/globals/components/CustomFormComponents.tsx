@@ -4,7 +4,6 @@ import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import './styles/CustomFormComponents.scss';
 import moment from 'moment';
 import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css'
 import { selectionOption } from "@utils/types"
 
 const Form: React.FC<{ children: React.ReactNode, [key: string]: unknown }> = ({ children, ...rest }) => {
@@ -39,7 +38,7 @@ const FormField: React.FC<FormFieldProps> = (props) => {
     type = 'text',
     size = 'medium',
     value = '',
-    onChange = () => {},
+    onChange = () => { },
     spinnerHidden = true,
     required = false,
     disabled = false,
@@ -47,9 +46,6 @@ const FormField: React.FC<FormFieldProps> = (props) => {
   } = props;
 
   const getValue = (): string => {
-    if (type.toLowerCase() === 'date') return moment(value).format('yyyy-MM-DD');
-    if (type.toLowerCase() === 'time') return moment(value).format('HH:mm');
-    if (type.toLowerCase() === 'datetime-local') return moment(value).format('yyyy-MM-DDTHH:mm');
     return String(value);
   };
 
@@ -64,52 +60,40 @@ const FormField: React.FC<FormFieldProps> = (props) => {
         </div>
       </Box>
 
-      {(type.toLowerCase() === 'phone') ? (
-        <PhoneInput
-          value={getValue() as PhoneInuptValue}
-          disabled={disabled}
-          enableSearch
-          country={"in"}
-          countryCodeEditable={false}
-          onChange={(val) => {
-            onChange({ target: { name: rest.name as string, value: val || '' } });
-          }}
-        />
-      ) : (
-        <TextField
-          type={type}
-          size={size}
-          required={required}
-          disabled={disabled}
-          value={getValue()}
-          onKeyDown={(e) => {
-            if (type.toLowerCase() === 'number') {
-              const key = e.key;
-              if (
-                (key >= '0' && key <= '9') ||
-                key === 'Backspace' ||
-                key === 'Delete' ||
-                key === 'ArrowLeft' ||
-                key === 'ArrowRight' ||
-                key === 'ArrowUp' ||
-                key === 'ArrowDown' ||
-                key === 'Enter' ||
-                (key === '.' && value?.toString().includes && !value?.toString().includes('.')) ||
-                (key === '-' && value?.toString().length === 0)
-              ) {
-                return true;
-              } else {
-                e.preventDefault();
-                return false;
-              }
+      <TextField
+        type={type}
+        size={size}
+        required={required}
+        disabled={disabled}
+        value={getValue()}
+        onKeyDown={(e) => {
+          if (type.toLowerCase() === 'number') {
+            const key = e.key;
+            if (
+              (key >= '0' && key <= '9') ||
+              key === 'Backspace' ||
+              key === 'Delete' ||
+              key === 'ArrowLeft' ||
+              key === 'ArrowRight' ||
+              key === 'ArrowUp' ||
+              key === 'ArrowDown' ||
+              key === 'Enter' ||
+              (key === '.' && value?.toString().includes && !value?.toString().includes('.')) ||
+              (key === '-' && value?.toString().length === 0)
+            ) {
+              return true;
+            } else {
+              e.preventDefault();
+              return false;
             }
-          }}
-          onChange={onChange}
-          className={`${error ? 'custom-error-field' : 'custom-form-field'} ${type.toLowerCase() === 'number' && spinnerHidden ? 'no-spinner' : ''}`}
-          fullWidth={fluid}
-          {...rest}
-        />
-      )}
+          }
+        }}
+        onChange={onChange}
+        className={`${error ? 'custom-error-field' : 'custom-form-field'} ${type.toLowerCase() === 'number' && spinnerHidden ? 'no-spinner' : ''}`}
+        fullWidth={fluid}
+        {...rest}
+      />
+
 
       {error && <div className="custom-form-field-error">{error}</div>}
     </Box>
