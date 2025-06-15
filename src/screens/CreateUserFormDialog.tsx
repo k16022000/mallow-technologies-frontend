@@ -12,7 +12,7 @@ import CustomFormik from '../globals/components/Customformik';
 import Swal from 'sweetalert2';
 import { Form, FormField } from '../globals/components/CustomFormComponents';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInitialValues } from '../redux/userSlice';
+import { setInitialValues, upsertUser } from '../redux/userSlice';
 import { RootState } from '@redux/store';
 
 interface CreateUserFormDialogProps {
@@ -43,6 +43,59 @@ const CreateUserFormDialog: React.FC<CreateUserFormDialogProps> = ({ open, onClo
   });
 
 
+  // const handleSubmit = async (values: FormValues) => {
+  //   const payload = {
+  //     name: `${values.first_name} ${values.last_name}`,
+  //     job: values.avatar || 'zion resident'
+  //   };
+
+  //   const isUpdate = !!values.id;
+  //   const method = isUpdate ? 'PUT' : 'POST';
+  //   const endpoint = isUpdate
+  //     ? `https://reqres.in/api/users/${values.id}`
+  //     : 'https://reqres.in/api/users';
+
+  //   try {
+  //     const response = await fetch(endpoint, {
+  //       method,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Accept: 'application/json',
+  //         'x-api-key': API_KEY
+  //       },
+  //       body: JSON.stringify(payload)
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Failed to ${isUpdate ? 'update' : 'create'} user`);
+  //     }
+
+  //     const data = await response.json();
+  //     console.log(`${isUpdate ? 'User updated' : 'User created'}:`, data);
+
+  //     Swal.fire({
+  //       icon: 'success',
+  //       title: isUpdate ? 'User Updated' : 'User Created',
+  //       text: `User ${data.name || values.first_name} has been successfully ${isUpdate ? 'updated' : 'created'}.`,
+  //       showConfirmButton: true
+  //     }).then(() => {
+  //       onSubmit();
+  //     });
+
+  //     onClose();
+
+  //   } catch (error) {
+  //     console.error(`Error ${isUpdate ? 'updating' : 'creating'} user:`, error);
+
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Error',
+  //       text: `Failed to ${isUpdate ? 'update' : 'create'} user. Please try again later.`,
+  //       showConfirmButton: true
+  //     });
+  //   }
+  // };
+
   const handleSubmit = async (values: FormValues) => {
     const payload = {
       name: `${values.first_name} ${values.last_name}`,
@@ -71,7 +124,6 @@ const CreateUserFormDialog: React.FC<CreateUserFormDialogProps> = ({ open, onClo
       }
 
       const data = await response.json();
-      console.log(`${isUpdate ? 'User updated' : 'User created'}:`, data);
 
       Swal.fire({
         icon: 'success',
@@ -79,15 +131,21 @@ const CreateUserFormDialog: React.FC<CreateUserFormDialogProps> = ({ open, onClo
         text: `User ${data.name || values.first_name} has been successfully ${isUpdate ? 'updated' : 'created'}.`,
         showConfirmButton: true
       }).then(() => {
-        onSubmit();
+        dispatch(
+          upsertUser({
+            id: Number(values.id || data.id),
+            email: values.email,
+            first_name: values.first_name,
+            last_name: values.last_name,
+            avatar: values.avatar || ''
+          })
+        );
       });
 
       onClose();
 
     } catch (error) {
-      console.error(`Error ${isUpdate ? 'updating' : 'creating'} user:`, error);
-
-      Swal.fire({
+      await Swal.fire({
         icon: 'error',
         title: 'Error',
         text: `Failed to ${isUpdate ? 'update' : 'create'} user. Please try again later.`,

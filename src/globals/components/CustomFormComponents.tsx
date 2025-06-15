@@ -2,8 +2,6 @@ import React, { SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { Form as FormikForm } from 'formik';
 import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
 import './styles/CustomFormComponents.scss';
-import moment from 'moment';
-import PhoneInput from 'react-phone-input-2';
 import { selectionOption } from "@utils/types"
 
 const Form: React.FC<{ children: React.ReactNode, [key: string]: unknown }> = ({ children, ...rest }) => {
@@ -27,8 +25,6 @@ interface FormFieldProps {
   disabled?: boolean;
   [key: string]: unknown;
 }
-
-type PhoneInuptValue = string | null | undefined;
 
 const FormField: React.FC<FormFieldProps> = (props) => {
   const {

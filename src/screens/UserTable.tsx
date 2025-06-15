@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import UserCard from './UserCard';
 import NullDataReplacement from '../globals/components/NullDataReplacement';
 import CreateUserFormDialog from './CreateUserFormDialog';
-import { setOpen, setPage, setTotalCount, setUsers, setView, setSelectedUserId, resetInitialValues } from '../redux/userSlice';
+import { setOpen, setPage, setTotalCount, setUsers, setView, setSelectedUserId, resetInitialValues, deleteUser } from '../redux/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@redux/store';
 
@@ -78,9 +78,9 @@ const UserTable: React.FC = () => {
           title: 'Deleted!',
           text: 'User has been deleted successfully.',
         }).then(() => {
-          setForceRender(forceRender + 1);
+          dispatch(deleteUser(userId));
+          // setForceRender(forceRender + 1);
         });
-        // Re-fetch or update users list here
       } else {
         throw new Error('Failed to delete');
       }

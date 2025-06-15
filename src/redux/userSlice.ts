@@ -52,6 +52,17 @@ const userSlice = createSlice({
     setUsers: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
     },
+    upsertUser: (state, action: PayloadAction<User>) => {
+      const index = state.users.findIndex(user => user.id === action.payload.id);
+      if (index !== -1) {
+        state.users[index] = action.payload;
+      } else {
+        state.users.unshift(action.payload);
+      }
+    },
+    deleteUser: (state, action: PayloadAction<number>) => {
+      state.users = state.users.filter(user => user.id !== action.payload);
+    },
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
     },
@@ -85,6 +96,8 @@ const userSlice = createSlice({
 
 export const {
   setUsers,
+  upsertUser,
+  deleteUser,
   setPage,
   setTotalCount,
   setOpen,

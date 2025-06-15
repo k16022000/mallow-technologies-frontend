@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import { Lock, PermIdentity } from '@mui/icons-material';
 import CustomFormik from '../globals/components/Customformik';
 import { Form, FormField } from '../globals/components/CustomFormComponents';
-import { setLogin } from '../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -46,12 +45,14 @@ const LoginForm: React.FC = () => {
       const data = await res.json();
 
       if (res.ok) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('token', data.token || '');
+
         await Swal.fire({
           icon: 'success',
           title: 'Login Successful',
           showConfirmButton: true
         }).then(() => {
-          dispatch(setLogin(true));
           navigate("/home");
         });
       } else {
